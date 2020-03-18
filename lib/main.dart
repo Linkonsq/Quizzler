@@ -26,16 +26,16 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-  List<Icon> scoreKeeper = [
-    Icon(
-      Icons.check,
-      color: Colors.green,
-    ),
-    Icon(
-      Icons.close,
-      color: Colors.red,
-    ),
+  List<Icon> scoreKeeper = [];
+  List<String> questions = [
+    'You can lead a cow down stairs but not up stairs.',
+    'Approximately one quarter of human bones are in the feet.',
+    'A slug\'s blood is green.'
   ];
+  List<bool> answers = [false, true, true];
+
+  int questionNumber = 0;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -48,7 +48,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: const EdgeInsets.all(10),
             child: Center(
               child: Text(
-                'This is where the question text will appear.',
+                questions[questionNumber],
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 25, color: Colors.white),
               ),
@@ -65,8 +65,16 @@ class _QuizPageState extends State<QuizPage> {
                 style: TextStyle(fontSize: 20, color: Colors.white),
               ),
               onPressed: () {
-                setState(() {
+                bool correctAnswer = answers[questionNumber];
+
+                if (correctAnswer) {
                   scoreKeeper.add(Icon(Icons.check, color: Colors.green));
+                } else {
+                  scoreKeeper.add(Icon(Icons.close, color: Colors.red));
+                }
+
+                setState(() {
+                  questionNumber++;
                 });
               },
             ),
@@ -81,7 +89,19 @@ class _QuizPageState extends State<QuizPage> {
                 'False',
                 style: TextStyle(fontSize: 20, color: Colors.white),
               ),
-              onPressed: () {},
+              onPressed: () {
+                bool correctAnswer = answers[questionNumber];
+
+                if (correctAnswer) {
+                  scoreKeeper.add(Icon(Icons.check, color: Colors.green));
+                } else {
+                  scoreKeeper.add(Icon(Icons.close, color: Colors.red));
+                }
+
+                setState(() {
+                  questionNumber++;
+                });
+              },
             ),
           ),
         ),
